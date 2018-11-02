@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: gamabetting-api
+server:
+  port: 8080
+  servlet:
+    context-path: /gamabetting
+
+betfair:
+  security:
+    appKey: 'Szx1FGThmaNmSz9U'
+    ssoToken: 'OLWmC26OOL4sbsw63avREIAS2CArj+kx2sk4fz9H1Rg='
+  api:
+    aping_url: https://api.betfair.com/exchange/betting
+    rest_suffix: /rest/v1.0/
+    timeout: 10000
