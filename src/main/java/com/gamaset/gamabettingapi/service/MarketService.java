@@ -1,7 +1,8 @@
 package com.gamaset.gamabettingapi.service;
 
+import static com.gamaset.gamabettingapi.utils.MarketFilterUtils.getPriceProjectionDefault;
+
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -62,8 +63,9 @@ public class MarketService {
 
 	public List<MarketBook> listMarketBookByMarketId(String marketId) throws APINGException, IOException {
 		try {
-			
-			return marketOperation.listMarketBook(Arrays.asList(marketId), appKey, ssoToken);
+			Set<String> marketIds = new HashSet<>();
+			marketIds.add(marketId);
+			return marketOperation.listMarketBook(marketIds, getPriceProjectionDefault(), appKey, ssoToken);
 		} catch (APINGException apiEx) {
 			throw apiEx;
 		} catch (IOException e) {

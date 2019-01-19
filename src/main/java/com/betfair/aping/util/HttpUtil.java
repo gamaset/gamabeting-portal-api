@@ -33,7 +33,7 @@ public class HttpUtil {
 	public String sendPostRequest(String param, String operation, String appKey, String ssoToken) {
 		String apiNgURL = APING_URL + RESCRIPT_SUFFIX + operation + "/";
 		
-		System.out.println(">>> HttpUtil.sendPostRequest.apiNgURL: " + apiNgURL);
+//		System.out.println(">>> HttpUtil.sendPostRequest.apiNgURL: " + apiNgURL);
 		
 		String jsonRequest = param;
 		
@@ -48,7 +48,7 @@ public class HttpUtil {
 		
 		ResponseEntity<String> postForEntity = restTemplate.postForEntity(apiNgURL, request, String.class);
 		
-		System.out.println(">>> HttpUtil.sendPostRequest.postForEntity: " + postForEntity);
+//		System.out.println(">>> HttpUtil.sendPostRequest.postForEntity: " + postForEntity);
 		
 		return postForEntity.getBody();
 	}

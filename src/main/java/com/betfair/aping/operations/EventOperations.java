@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 import com.betfair.aping.entities.EventResult;
 import com.betfair.aping.entities.EventTypeResult;
 import com.betfair.aping.entities.MarketFilter;
+import com.betfair.aping.enums.MarketSort;
 import com.betfair.aping.exceptions.APINGException;
 import com.betfair.aping.util.HttpUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -36,9 +37,6 @@ public class EventOperations implements ApiNgOperations {
 		params.put(FILTER, marketFilter);
 		params.put(LOCALE, locale);
 
-		System.out.println(">> [listEventTypes] Get all Event Types");
-		System.out.println(String.format(">> params(%s) appKey(%s) ssoId(%s)", params, appKey, ssoToken));
-
 		String result = makeRequest(LISTEVENTTYPES.getOperationName(), params, appKey, ssoToken);
 
 		List<EventTypeResult> events = mapper.readValue(result, new TypeReference<List<EventTypeResult>>() {
@@ -53,9 +51,8 @@ public class EventOperations implements ApiNgOperations {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put(FILTER, marketFilter);
 		params.put(LOCALE, locale);
-
-		System.out.println(">> [listEventTypes] Get all Event Types");
-		System.out.println(String.format(">> params(%s) appKey(%s) ssoId(%s)", params, appKey, ssoToken));
+		params.put(SORT, MarketSort.FIRST_TO_START);
+//		params.put(MAX_RESULT, 10);
 
 		String result = makeRequest(LISTEVENTS.getOperationName(), params, appKey, ssoToken);
 
@@ -70,7 +67,7 @@ public class EventOperations implements ApiNgOperations {
 			throws APINGException, JsonProcessingException {
 
 		String requestString = mapper.writeValueAsString(params);
-		System.out.println(">> Request: " + requestString);
+		System.out.println(">> EventOperations Request: " + requestString);
 
 		String response = requester.sendPostRequest(requestString, operation, appKey, ssoToken);
 		if (Objects.nonNull(response)) {

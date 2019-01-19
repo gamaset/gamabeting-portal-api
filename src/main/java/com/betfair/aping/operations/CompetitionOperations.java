@@ -1,5 +1,6 @@
 package com.betfair.aping.operations;
 
+import static com.betfair.aping.enums.ApiNgOperation.LISTCOUNTRIES;
 import static com.betfair.aping.enums.ApiNgOperation.LISTCOMPETITIONS;
 
 import java.io.IOException;
@@ -35,7 +36,6 @@ public class CompetitionOperations implements ApiNgOperations {
 		params.put(LOCALE, locale);
 
 		System.out.println(">> [listCompetition] Get Competitions");
-		System.out.println(String.format(">> params(%s) appKey(%s) ssoId(%s)", params, appKey, ssoToken));
 
 		String result = makeRequest(LISTCOMPETITIONS.getOperationName(), params, appKey, ssoToken);
 
@@ -45,6 +45,18 @@ public class CompetitionOperations implements ApiNgOperations {
 		return competitions;
 	}
 
+	public String listCountries(MarketFilter marketFilter, String appKey, String ssoToken) throws JsonProcessingException, APINGException {
+
+			Map<String, Object> params = new HashMap<String, Object>();
+			params.put(FILTER, marketFilter);
+			params.put(LOCALE, locale);
+
+			System.out.println(">> [listCompetition] Get Competitions");
+
+			String result = makeRequest(LISTCOUNTRIES.getOperationName(), params, appKey, ssoToken);
+
+			return result;
+	}
 
 	@Override
 	public String makeRequest(String operation, Map<String, Object> params, String appKey, String ssoToken)
@@ -60,5 +72,7 @@ public class CompetitionOperations implements ApiNgOperations {
 			throw new APINGException();
 		}
 	}
+
+
 
 }

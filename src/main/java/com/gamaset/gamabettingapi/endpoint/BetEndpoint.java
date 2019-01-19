@@ -16,7 +16,7 @@ import com.betfair.aping.exceptions.APINGException;
 import com.gamaset.gamabettingapi.service.CompetitionService;
 
 @RestController
-public class CompetitionEndpoint {
+public class BetEndpoint {
 
 	@Autowired
 	private CompetitionService competitionService;

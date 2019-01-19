@@ -2,14 +2,14 @@ spring:
   application:
     name: gamabetting-api
 server:
-  port: 8080
+  port: 8081
   servlet:
     context-path: /gamabetting
 
 betfair:
   security:
     appKey: 'Szx1FGThmaNmSz9U'
-    ssoToken: 'OLWmC26OOL4sbsw63avREIAS2CArj+kx2sk4fz9H1Rg='
+    ssoToken: 'naA0Uw6cB98E4y0H/EuajiE2jE8M6CQbYNCgOsQMsZM='
   api:
     aping_url: https://api.betfair.com/exchange/betting
     rest_suffix: /rest/v1.0/
