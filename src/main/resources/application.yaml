@@ -9,7 +9,7 @@ server:
 betfair:
   security:
     appKey: 'Szx1FGThmaNmSz9U'
-    ssoToken: 'vVt7H2uxMFpz+ic+K+VQAHLdnS5ySftjy166HP8j2Z8='
+    ssoToken: 't0BjJbh5+w2fpccQUn4uZW13ka4ljufrbfntU7iuE+g='
   api:
     aping_url: https://api.betfair.com/exchange/betting
     rest_suffix: /rest/v1.0/

@@ -102,7 +102,7 @@ public class EventService {
 			for (EventModel event : events) {
 				for (MarketBook marketBook : listMarketBook) {
 					if(marketBook.getMarketId().equalsIgnoreCase(event.getMarkets().get(0).getMarketId())){
-						event.getMarkets().get(0).withPrices(marketBook.getRunners());
+						event.getMarkets().get(0).withPrices(marketBook.getRunners(), listMarketCatalogue);
 						break;
 					}
 				}
