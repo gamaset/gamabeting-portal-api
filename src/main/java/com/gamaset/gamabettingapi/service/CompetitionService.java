@@ -18,6 +18,7 @@ import com.betfair.aping.entities.CompetitionResult;
 import com.betfair.aping.entities.MarketFilter;
 import com.betfair.aping.exceptions.APINGException;
 import com.betfair.aping.operations.CompetitionOperations;
+import com.gamaset.gamabettingapi.model.CountryModel;
 
 @Service
 public class CompetitionService {
@@ -54,7 +55,7 @@ public class CompetitionService {
 		}
 	}
 
-	public String listCountriesByEventTypeId(Long eventTypeId) throws APINGException, IOException {
+	public List<CountryModel> listCountriesByEventTypeId(Long eventTypeId) throws APINGException, IOException {
 		try {
 
 			MarketFilter marketFilter = new MarketFilter();

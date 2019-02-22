@@ -1,7 +1,7 @@
 package com.betfair.aping.operations;
 
-import static com.betfair.aping.enums.ApiNgOperation.LISTCOUNTRIES;
 import static com.betfair.aping.enums.ApiNgOperation.LISTCOMPETITIONS;
+import static com.betfair.aping.enums.ApiNgOperation.LISTCOUNTRIES;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -19,6 +19,7 @@ import com.betfair.aping.util.HttpUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gamaset.gamabettingapi.model.CountryModel;
 
 @Component
 public class CompetitionOperations implements ApiNgOperations {
@@ -39,13 +40,12 @@ public class CompetitionOperations implements ApiNgOperations {
 
 		String result = makeRequest(LISTCOMPETITIONS.getOperationName(), params, appKey, ssoToken);
 
-		List<CompetitionResult> competitions = mapper.readValue(result, new TypeReference<List<CompetitionResult>>() {
-		});
-
+		List<CompetitionResult> competitions = mapper.readValue(result, new TypeReference<List<CompetitionResult>>() {});
+		
 		return competitions;
 	}
 
-	public String listCountries(MarketFilter marketFilter, String appKey, String ssoToken) throws JsonProcessingException, APINGException {
+	public List<CountryModel> listCountries(MarketFilter marketFilter, String appKey, String ssoToken) throws APINGException, IOException {
 
 			Map<String, Object> params = new HashMap<String, Object>();
 			params.put(FILTER, marketFilter);
@@ -54,8 +54,9 @@ public class CompetitionOperations implements ApiNgOperations {
 			System.out.println(">> [listCompetition] Get Competitions");
 
 			String result = makeRequest(LISTCOUNTRIES.getOperationName(), params, appKey, ssoToken);
+			List<CountryModel> countries = mapper.readValue(result, new TypeReference<List<CountryModel>>() {});
 
-			return result;
+			return countries;
 	}
 
 	@Override
