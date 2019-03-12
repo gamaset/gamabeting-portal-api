@@ -14,7 +14,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.betfair.aping.entities.EventResult;
@@ -28,23 +27,30 @@ import com.betfair.aping.operations.MarketOperations;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gamaset.gamabettingapi.model.EventGroupedByCompetitionModel;
 import com.gamaset.gamabettingapi.model.EventModel;
+import com.gamaset.gamabettingapi.repository.PortalCongifAuthRepository;
+import com.gamaset.gamabettingapi.repository.entity.PortalConfigAuthModel;
 import com.gamaset.gamabettingapi.utils.MarketFilterUtils;
 
 @Service
 public class EventService {
 
-	@Value("${betfair.security.appKey}")
 	private String appKey;
-	@Value("${betfair.security.ssoToken}")
 	private String ssoToken;
-
-	@Autowired
 	private ObjectMapper mapper;
+	private EventOperations eventOperation;
+	private MarketOperations marketOperation;
+	private PortalCongifAuthRepository authRepository;
 	
 	@Autowired
-	private EventOperations eventOperation;
-	@Autowired
-	private MarketOperations marketOperation;
+	public EventService(ObjectMapper mapper, EventOperations eventOperation, MarketOperations marketOperation, PortalCongifAuthRepository authRepository) {
+		this.mapper = mapper;
+		this.eventOperation = eventOperation;
+		this.marketOperation = marketOperation;
+		this.authRepository = authRepository;
+		PortalConfigAuthModel portalConfigAuthModel = this.authRepository.findById(1L).get();
+		this.appKey = portalConfigAuthModel.getAppKey();
+		this.ssoToken = portalConfigAuthModel.getSsoToken();
+	}
 
 	public List<EventTypeResult> listEventTypes() throws APINGException, IOException {
 

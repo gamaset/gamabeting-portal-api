@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.betfair.aping.entities.MarketBook;
@@ -17,17 +16,26 @@ import com.betfair.aping.entities.MarketFilter;
 import com.betfair.aping.entities.MarketTypeResult;
 import com.betfair.aping.exceptions.APINGException;
 import com.betfair.aping.operations.MarketOperations;
+import com.gamaset.gamabettingapi.repository.PortalCongifAuthRepository;
+import com.gamaset.gamabettingapi.repository.entity.PortalConfigAuthModel;
 
 @Service
 public class MarketService {
 
-	@Value("${betfair.security.appKey}")
 	private String appKey;
-	@Value("${betfair.security.ssoToken}")
 	private String ssoToken;
 
-	@Autowired
 	private MarketOperations marketOperation;
+	private PortalCongifAuthRepository authRepository;
+	
+	@Autowired
+	public MarketService(PortalCongifAuthRepository authRepository, MarketOperations marketOperation) {
+		this.marketOperation = marketOperation;
+		this.authRepository = authRepository;
+		PortalConfigAuthModel portalConfigAuthModel = this.authRepository.findById(1L).get();
+		this.appKey = portalConfigAuthModel.getAppKey();
+		this.ssoToken = portalConfigAuthModel.getSsoToken();
+	}
 
 	public List<MarketTypeResult> listMarketTypesByEventId(Long eventId) throws APINGException, IOException {
 		try {
